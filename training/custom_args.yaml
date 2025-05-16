@@ -1,0 +1,15 @@
+mosaic: 0.0
+mixup: 0.0
+copy_paste: 0.0
+fliplr: 0.0
+flipud: 0.0
+hsv_h: 0.0
+hsv_s: 0.0
+hsv_v: 0.0
+degrees: 0
+translate: 0.05
+scale: 0.1
+shear: 0.0
+perspective: 0
+auto_augment: none
+erasing: 0.0

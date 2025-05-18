@@ -28,3 +28,9 @@ for dirpath, dirnames, filenames in os.walk(folder, topdown=False):
                             print(f"Deleted: {image_path} and {json_path} (empty shapes)")
                 except json.JSONDecodeError:
                     print(f"Invalid JSON: {json_path}")
+
+# Remove empty subfolders (but not the root folder itself)
+for dirpath, dirnames, filenames in os.walk(folder, topdown=False):
+    if dirpath != folder and not os.listdir(dirpath):
+        os.rmdir(dirpath)
+        print(f"Deleted empty directory: {dirpath}")

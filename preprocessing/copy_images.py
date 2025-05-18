@@ -2,12 +2,12 @@ import os
 import shutil
 from pathlib import Path
 
-source_dir = "../prepared_dataset"
-target_dir = "../dataset"
+source_dir = "../dataset_prepared"
+target_dir = "../dataset/images"
 
 os.makedirs(target_dir, exist_ok=True)
 
-txt_files = [Path(f).stem for f in os.listdir(target_dir) if f.endswith('.txt')]
+txt_files = [Path(f).stem for f in os.listdir("../dataset/labels") if f.endswith('.txt')]
 
 for name in txt_files:
     for ext in ['.jpg', '.jpeg', '.png']:

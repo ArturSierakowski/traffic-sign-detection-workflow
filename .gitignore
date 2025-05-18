@@ -12,7 +12,7 @@ dist/
 *.spec
 
 data/
-prepared_dataset/
+dataset_prepared/
 dataset/
 
 *.pt

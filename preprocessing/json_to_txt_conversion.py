@@ -1,3 +1,4 @@
+import os
 import json
 import glob
 from pathlib import Path
@@ -24,8 +25,8 @@ category_to_id = {
     "P-9a": 153, "P-9b": 154
 }
 
-input_folder = "../prepared_dataset"
-output_folder = "../dataset"
+input_folder = "../dataset_prepared"
+output_folder = "../dataset/labels"
 
 Path(output_folder).mkdir(parents=True, exist_ok=True)
 
@@ -33,8 +34,16 @@ json_files = glob.glob(f"{input_folder}/*.json")
 print("🔍 Found JSONs:", json_files)
 
 for file in json_files:
+    if os.path.getsize(file) == 0:
+        print(f"❌ Skipped empty JSON file: {file}")
+        continue
+
     with open(file, "r", encoding="utf-8") as f:
-        data = json.load(f)
+        try:
+            data = json.load(f)
+        except json.JSONDecodeError:
+            print(f"❌ Invalid JSON format in: {file}")
+            continue
 
     print(f"\n📂 Processing file: {file}")
     print("📏 Image resolution:", data["imageWidth"], "x", data["imageHeight"])

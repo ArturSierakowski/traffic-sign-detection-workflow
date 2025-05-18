@@ -1,4 +1,5 @@
 import os
+import re
 from dotenv import load_dotenv
 import requests
 import mercantile
@@ -6,7 +7,7 @@ from vt2geojson.tools import vt_bytes_to_geojson
 
 # Load .env
 load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
-ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
+ACCESS_TOKEN = os.getenv("MAPILLARY_TOKEN")
 distance = float(os.getenv("AREA_DISTANCE", "0.0005"))
 
 # Load coordinates from file
@@ -17,7 +18,7 @@ tile_coverage = 'mly1_public'
 tile_layer = "image"
 
 for input_coords in coordinates_list:
-    lat, lng = map(float, input_coords.split("/"))
+    lat, lng = map(float, re.split(r"[/,]", input_coords))
     south, north = lat - distance, lat + distance
     west, east = lng - distance, lng + distance
 
@@ -33,7 +34,13 @@ for input_coords in coordinates_list:
             lng_feat, lat_feat = feature['geometry']['coordinates']
             if west < lng_feat < east and south < lat_feat < north:
                 sequence_id = feature['properties']['sequence_id']
-                os.makedirs(sequence_id, exist_ok=True)
+                destination = os.path.join("data", sequence_id)
+                try:
+                    os.makedirs(destination, exist_ok=False)
+                    print(f"📂 Created folder: {destination}")
+                except FileExistsError:
+                    pass
+
                 image_id = feature['properties']['id']
                 header = {'Authorization': f'OAuth {ACCESS_TOKEN}'}
                 url = f'https://graph.mapillary.com/{image_id}?fields=thumb_2048_url'
@@ -42,5 +49,10 @@ for input_coords in coordinates_list:
 
                 if image_url:
                     img_data = requests.get(image_url).content
-                    with open(os.path.join(sequence_id, f'{image_id}.jpg'), 'wb') as handler:
+                    image_path = os.path.join(destination, f'{image_id}.jpg')
+                    if os.path.exists(image_path):
+                        print(f"Skipping {image_path} (already exists)")
+                        continue
+
+                    with open(image_path, 'wb') as handler:
                         handler.write(img_data)

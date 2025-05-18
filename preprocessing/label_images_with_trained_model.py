@@ -10,16 +10,16 @@ def image_to_base64(image_path):
         return base64.b64encode(image_file.read()).decode('utf-8')
 
 # Set default folder if not provided
-root_dir = sys.argv[1] if len(sys.argv) > 1 else "../downloader/download_by_sequence/data"
+root_dir = sys.argv[1] if len(sys.argv) > 1 else "../downloader/download_by_area/data"
 
-model = YOLO('sigma.pt')
+model = YOLO('../sigma.pt')
 class_names = model.names
 
 for dirpath, _, filenames in os.walk(root_dir):
     for f in filenames:
         if f.lower().endswith(('.jpg', '.jpeg', '.png')):
             image_path = os.path.join(dirpath, f)
-            results = model.predict(source=image_path, save=False, conf=0.3)
+            results = model.predict(source=image_path, save=False, conf=0.5)
             r = results[0]
 
             shapes = []
@@ -52,6 +52,10 @@ for dirpath, _, filenames in os.walk(root_dir):
                     "imageWidth": w
                 }
                 json_path = os.path.splitext(image_path)[0] + ".json"
+                if os.path.exists(json_path):
+                    print(f"Skipping {image_path} (already labeled)")
+                    continue
+
                 with open(json_path, 'w') as f:
                     json.dump(labelme_data, f, indent=4)
 

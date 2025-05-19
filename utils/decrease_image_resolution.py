@@ -1,6 +1,6 @@
 import cv2
 
-def resize_image_to_long_side(img_path, long_side=2800):
+def resize_image_to_long_side(img_path, long_side=960):
     img = cv2.imread(img_path)
     h, w = img.shape[:2]
 

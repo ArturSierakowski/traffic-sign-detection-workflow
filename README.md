@@ -1,3 +1,18 @@
+# Pipeline for Automated Dataset Preparation and Model Training
+
+This repository contains an automated workflow for downloading, labeling, preparing, and training a YOLO11 model on traffic sign detection.
+Key features:
+
+* Automated data acquisition from Mapillary based on provided coordinates or sequences
+
+* Automatic dataset preparation with LabelMe-compatible annotations
+
+* Conversion to YOLO format and dataset structuring
+
+* Model training and saving for further integration
+
+* Ready-to-use pipelines for reproducible processing
+
 ### Installation
 
 1. (Optional) Create virtual environment:\
@@ -22,7 +37,7 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 
 ### Read carefully, what pipelines do!
 
-## How to get my access token
+## How to get your access token
  - Go to https://www.mapillary.com/dashboard/developers
  - Click on "Registrer Application", enter the needed informations, enable the application to "Read" data, then click on register :
 

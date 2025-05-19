@@ -1,6 +1,6 @@
 import cv2
 
-def resize_image_to_long_side(img_path, long_side=960):
+def resize_image_to_long_side(img_path, long_side=2800):
     img = cv2.imread(img_path)
     h, w = img.shape[:2]
 
@@ -14,6 +14,5 @@ def resize_image_to_long_side(img_path, long_side=960):
     resized = cv2.resize(img, new_dim, interpolation=cv2.INTER_AREA)
     return resized
 
-# przykład użycia
-resized_img = resize_image_to_long_side(r"C:\Users\artur\Dropbox\Komputer\Downloads\img.jpg")
+resized_img = resize_image_to_long_side(r"C:\Users\artur\Dropbox\Komputer\Downloads\dobre.jpg")
 cv2.imwrite("resized.jpg", resized_img)

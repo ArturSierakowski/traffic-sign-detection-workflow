@@ -15,7 +15,7 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 "downloader/download_by_area/coordinates.txt"\
 "downloader/download_by_area/sequences.txt"\
 <images for a user to show him viable formats>
-3. (Optional) Download my model from <huggigface link>
+3. (Optional) Download my model from huggingface (not yey)
 4. Run pipelines/pipeline_prepare_data.py
 5. Verify the labels using e.g. Labelme
 6. Run pipelines/pipeline_finalize_dataset.py

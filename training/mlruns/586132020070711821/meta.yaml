@@ -1,0 +1,6 @@
+artifact_location: file:C:/Users/artur/PycharmProjects/test-traffic-sign-detection-workflow/training/mlruns/586132020070711821
+creation_time: 1748167931288
+experiment_id: '586132020070711821'
+last_update_time: 1748167931288
+lifecycle_stage: active
+name: runs/detect

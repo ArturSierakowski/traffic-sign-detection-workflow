@@ -1,0 +1,15 @@
+artifact_uri: file:C:/Users/artur/PycharmProjects/test-traffic-sign-detection-workflow/training/mlruns/539772914464316016/f68068f5db89419e9ad742b4fdd43a33/artifacts
+end_time: 1748167691048
+entry_point_name: ''
+experiment_id: '539772914464316016'
+lifecycle_stage: active
+run_id: f68068f5db89419e9ad742b4fdd43a33
+run_name: bedecked-mare-74
+run_uuid: f68068f5db89419e9ad742b4fdd43a33
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1748167690381
+status: 4
+tags: []
+user_id: artur

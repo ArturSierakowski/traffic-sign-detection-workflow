@@ -1,0 +1,6 @@
+artifact_location: file:C:/Users/artur/PycharmProjects/test-traffic-sign-detection-workflow/training/mlruns/539772914464316016
+creation_time: 1748167690296
+experiment_id: '539772914464316016'
+last_update_time: 1748167690296
+lifecycle_stage: active
+name: yolo-traffic-signs

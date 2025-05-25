@@ -11,8 +11,14 @@ build/
 dist/
 *.spec
 
+# dataset
 data/
 dataset_prepared/
 dataset/
 
+# training
 *.pt
+*.onnx
+mlruns/
+results/
+runs/

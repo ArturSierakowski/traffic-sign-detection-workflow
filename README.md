@@ -68,32 +68,29 @@ MAPILLARY_TOKEN=MLY|YOUR|TOKEN #change it here
 - Add sequence IDs to: `downloader/download_by_area/sequences.txt`
 
 4. Prepare the dataset 
-`python pipelines/pipeline_prepare_data.py`
+```bash
+python pipelines/pipeline_prepare_data.py
+```
 
 5. Manually verify labels
 Use [Labelme](https://github.com/wkentaro/labelme) to check/adjust bounding boxes.
 
 6. Finalize the dataset
-`python pipelines/pipeline_finalize_dataset.py`
+```bash
+python pipelines/pipeline_finalize_dataset.py
+```
 
 7. Augmentation
-
-8. Log results to MLflow (optional)
-```python
-import mlflow
-mlflow.start_run()
-mlflow.log_param("epochs", 100)
-mlflow.log_metric("mAP50", 0.88)
-mlflow.log_artifact("confusion_matrix.png")
-mlflow.end_run()
-```
-
-9. Train the model
 ```bash
-yolo train model=yolo11m.pt data=./data/data.yaml epochs=100 imgsz=640
+python preproccesing/split_aug_dataset.py
 ```
 
-10. Export the model (optional)
+8. Train the model (enter your own parameters)
+```bash
+python training/train.py
+```
+
+9. Export the model (optional)
 ```bash
 yolo export model=best.pt format=onnx
 ```

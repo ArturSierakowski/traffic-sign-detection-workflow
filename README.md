@@ -28,10 +28,10 @@ Model/
 ├── downloader/            # Mapillary data downloading
 ├── pipelines/             # Pipeline for preprocessing and dataset structuring
 ├── preprocessing/         # Additional transformation tools
-├── TestSet                # TODO
 ├── training/              # Training scripts YOLO
 ├── utils/                 # Helper functions
 └── requirements.txt       # Python dependencies
+└── README.md              # You are reading it
 ```
 
 ## 🧪 Training Pipeline – Step by Step
@@ -49,7 +49,7 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 - Register your application and allow "READ" access
 - Copy your API token and place it in `downloader/.env`:
 ```
-MAPILLARY_TOKEN=MLY|YOUR|TOKEN #change it here
+MAPILLARY_TOKEN=MLY|YOUR|TOKEN #set your token here
 ```
 
 <details><summary>📸 Click to show Mapillary screenshots</summary>
@@ -82,13 +82,17 @@ python pipelines/pipeline_finalize_dataset.py
 
 7. Augmentation
 ```bash
-python preproccesing/split_aug_dataset.py
+python preprocessing/split_aug_dataset.py
 ```
 
 8. Train the model (enter your own parameters)
 ```bash
 python training/train.py
 ```
+
+> [!NOTE]  
+> Training logs (metrics, artifacts) are saved to MLflow automatically if MLflow is installed and enabled in `train.py`.
+
 
 9. Export the model (optional)
 ```bash

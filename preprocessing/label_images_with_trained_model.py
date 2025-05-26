@@ -9,23 +9,25 @@ def image_to_base64(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode('utf-8')
 
-# Set default folder if not provided
 root_dir = sys.argv[1] if len(sys.argv) > 1 else "../downloader/download_by_area/data"
 
 model = YOLO('../sigma.pt')
 class_names = model.names
+skip_classes = {}
 
 for dirpath, _, filenames in os.walk(root_dir):
     for f in filenames:
         if f.lower().endswith(('.jpg', '.jpeg', '.png')):
             image_path = os.path.join(dirpath, f)
-            results = model.predict(source=image_path, save=False, conf=0.5)
+            results = model.predict(source=image_path, save=False, conf=0.2)
             r = results[0]
 
             shapes = []
             for box in r.boxes:
                 cls_id = int(box.cls[0])
                 name = class_names[cls_id]
+                if name in skip_classes:
+                    continue
                 xc, yc, bw, bh = box.xywh[0].tolist()
                 x1, y1, x2, y2 = xc - bw/2, yc - bh/2, xc + bw/2, yc + bh/2
 

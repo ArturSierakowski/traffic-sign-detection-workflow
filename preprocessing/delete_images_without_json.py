@@ -4,7 +4,7 @@ import json
 import sys
 
 # Allow path as argument or use default
-folder = sys.argv[1] if len(sys.argv) > 1 else "../downloader/download_by_sequence/data"
+folder = sys.argv[1] if len(sys.argv) > 1 else "../downloader/download_by_area/data"
 
 for dirpath, dirnames, filenames in os.walk(folder, topdown=False):
     for filename in filenames:

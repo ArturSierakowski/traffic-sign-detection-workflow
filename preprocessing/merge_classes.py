@@ -26,6 +26,9 @@ label_merge_map = {
     'B-27': 'B-27/28',
     'B-28': 'B-27/28',
     # 'B-35': 'B-36',
+    'B-42': 'B-34',
+    'C-13': 'C-13/16',
+    'C-16': 'C-13/16',
     'D-6a': 'D-6',
     'D-6b': 'D-6',
     'D-11': 'D-11/12',
@@ -62,7 +65,7 @@ label_merge_map = {
     'F-22': 'F-21/22',
 }
 
-json_folder = ""
+json_folder = "../dataset_prepared"
 
 for filename in os.listdir(json_folder):
     if filename.endswith('.json'):

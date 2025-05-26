@@ -9,7 +9,6 @@ from dotenv import load_dotenv
 import writer
 from model import PictureType
 
-# Ustawienia środowiska i konfiguracji
 load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
 MAPILLARY_TOKEN = os.getenv("MAPILLARY_TOKEN")
 
@@ -20,11 +19,14 @@ if os.path.exists(sequences_file):
 else:
     SEQUENCE_IDS = []
 
-if not MAPILLARY_TOKEN or not SEQUENCE_IDS:
-    print("❌ MAPILLARY_TOKEN or sequences.txt not provided.")
+if not MAPILLARY_TOKEN:
+    print("❌ MAPILLARY_TOKEN not provided.")
     sys.exit(1)
 
-# Sesja z Retry dla wszystkich zapytań
+if not SEQUENCE_IDS:
+    print("⚠️ Brak sekwencji — pomijam pobieranie po sequence_id.")
+
+
 session = requests.Session()
 retries = Retry(total=5, backoff_factor=1, status_forcelist=[429, 502, 503, 504])
 session.mount('https://', HTTPAdapter(max_retries=retries))

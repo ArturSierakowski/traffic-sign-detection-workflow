@@ -3,7 +3,7 @@ import json
 from collections import Counter
 import matplotlib.pyplot as plt
 
-json_dir = ""
+json_dir = "../dataset_prepared"
 
 label_counts = Counter()
 

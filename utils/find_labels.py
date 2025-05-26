@@ -1,10 +1,10 @@
 import os
 import json
 
-folder = r'C:\Users\artur\PycharmProjects\znaki_mapillary\dataset_nowy'
-interesujace_klasy = {'A-5'}
+folder = "../dataset_prepared"
+targeted_classes = {'A-5'}
 
-pasujace_jsony = []
+matching_jsons = []
 
 for file in os.listdir(folder):
     if file.endswith('.json'):
@@ -13,12 +13,12 @@ for file in os.listdir(folder):
             with open(path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
                 for shape in data.get('shapes', []):
-                    if shape.get('label') in interesujace_klasy:
-                        pasujace_jsony.append(file)
+                    if shape.get('label') in targeted_classes:
+                        matching_jsons.append(file)
                         break  # wystarczy jedno trafienie
         except Exception as e:
-            print(f"❌ Błąd przy przetwarzaniu {file}: {e}")
+            print(f"❌ Error during processing {file}: {e}")
 
-print("\n✅ JSON-y zawierające " + ", ".join(sorted(interesujace_klasy)) + ":")
-for name in pasujace_jsony:
+print("\n✅ JSONs containing " + ", ".join(sorted(targeted_classes)) + ":")
+for name in matching_jsons:
     print(name)

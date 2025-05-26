@@ -47,7 +47,7 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 2. Get a Mapillary token
 - Visit [Mapillary Developers](https://www.mapillary.com/dashboard/developers)
 - Register your application and allow "READ" access
-- Copy your API token and place it in `downloader/.env`:
+- Copy your API token and place it in [`.env`](downloader/.env):
 ```
 MAPILLARY_TOKEN=MLY|YOUR|TOKEN #set your token here
 ```
@@ -64,8 +64,8 @@ MAPILLARY_TOKEN=MLY|YOUR|TOKEN #set your token here
 
 3. Add data sources
 
-- Add coordinates to: `downloader/download_by_area/coordinates.txt`
-- Add sequence IDs to: `downloader/download_by_area/sequences.txt`
+- Add coordinates to: [`coordinates.txt`](downloader/download_by_area/coordinates.txt)
+- Add sequence IDs to: [`sequences.txt`](downloader/download_by_area/sequences.txt)
 
 4. Prepare the dataset 
 ```bash
@@ -100,10 +100,7 @@ python training/train.py
 yolo export model=best.pt format=onnx
 ```
 
-## 📂 Dataset and model training
-
-<details>
-    <summary>Click here to see </summary>
+## 📂 Detailed description of the workflow
 
 Mapillary is the site which you can download from and upload to cameos from a dash-camera.
 
@@ -200,9 +197,44 @@ dataset/
 
 [`train.py`](training/train.py)
 
+Default parameters of training (you can change it freely)
+
+```python
+params = {
+        "cfg": "custom_args.yaml",
+        "data": "data.yaml",
+        "epochs": 5,
+        "batch": 8,
+        "imgsz": 640,
+        "device": "cuda",
+        "augment": False,
+        "project": "runs/detect",
+        "name": "exp_yolo_mlflow",
+        "exist_ok": False
+    }
+```
+
+> [!WARNING]
+> TODO
+
+## 📂 Bonus [utils/](./utils) folder
+
+<details>
+    <summary>Click here to see bonus scripts</summary>
+
+    count_instances_of_classes.py
+    
+It creates an image like this one:
+
+    TODO
+
+From your dataset
+
 </details>
 
+
 ## 📊 Final results
+
 | Metric       | Value |
 |--------------|-------|
 | mAP@0.5      | 0.85  |

@@ -1,8 +1,8 @@
 import os
 from pathlib import Path
 
-folder_with_images = "dataset/images"
-folder_with_txts = "dataset/labels"
+folder_with_images = "../dataset/images"
+folder_with_txts = "../dataset/labels"
 
 image_files = [f for f in Path(folder_with_images).glob('*') if f.is_file()]
 

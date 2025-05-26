@@ -1,8 +1,6 @@
 .venv/
 .idea/
 .env
-experimenting/
-class_instances.png
 
 *.pyc
 *.pyo
@@ -24,3 +22,7 @@ dataset/
 mlruns/
 results/
 runs/
+
+# other
+experimenting/
+class_instances.png

@@ -1,6 +1,6 @@
 import cv2
 
-def resize_image_to_long_side(img_path, long_side=960):
+def resize_image_to_long_side(img_path, long_side=640):
     img = cv2.imread(img_path)
     h, w = img.shape[:2]
 
@@ -14,5 +14,5 @@ def resize_image_to_long_side(img_path, long_side=960):
     resized = cv2.resize(img, new_dim, interpolation=cv2.INTER_AREA)
     return resized
 
-resized_img = resize_image_to_long_side(r"C:\Users\artur\Dropbox\Komputer\Downloads\dobre.jpg")
+resized_img = resize_image_to_long_side(r"C:\Users\artur\PycharmProjects\test-traffic-sign-detection-workflow\downloader\download_by_area\data\8wm4aucgzrn7oapfdsv5eh\713951959305393.jpg")
 cv2.imwrite("resized.jpg", resized_img)

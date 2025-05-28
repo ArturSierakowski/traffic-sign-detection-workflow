@@ -16,7 +16,7 @@ subprocess.run([sys.executable, "move_labels_and_images.py", "../downloader/down
 subprocess.run([sys.executable, "move_labels_and_images.py", "../downloader/download_by_area/data"], cwd=pre_dir, check=True)
 
 print("Step 7: Merging few classes into one...")
-subprocess.run([sys.executable, "merge_classes"], cwd=pre_dir, check=True)
+subprocess.run([sys.executable, "merge_classes.py"], cwd=pre_dir, check=True)
 
 print("Step 8: Copying labels to dataset/labels and converting JSON to YOLO TXT format...")
 subprocess.run([sys.executable, "json_to_txt_conversion.py"], cwd=pre_dir, check=True)

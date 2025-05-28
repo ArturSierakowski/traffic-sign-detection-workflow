@@ -22,7 +22,3 @@ dataset/
 mlruns/
 results/
 runs/
-
-# other
-experimenting/
-class_instances.png

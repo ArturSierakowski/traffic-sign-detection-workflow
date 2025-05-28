@@ -30,7 +30,7 @@ for root, _, files in os.walk(json_dir):
 sorted_counts = sorted(label_counts.items(), key=lambda x: x[1], reverse=True)
 
 # Split into top and remaining
-top_n = 22
+top_n = 40
 top = sorted_counts[:top_n]
 rest = sorted_counts[top_n:]
 
@@ -44,7 +44,7 @@ fig, axs = plt.subplots(2, 1, figsize=(22, 14), sharex=False)
 # --- Plot 1: Top 22 ---
 labels_top, counts_top = zip(*top)
 axs[0].bar(labels_top, counts_top, color=palette_top)
-axs[0].set_title("Top 22 most frequent classes")
+axs[0].set_title("Top 40 most frequent classes")
 axs[0].grid(axis='y', linestyle='--', alpha=0.5)
 axs[0].tick_params(axis='x', rotation=90)
 
@@ -61,10 +61,10 @@ axs[1].tick_params(axis='x', rotation=90)
 
 # Optional: show labels if counts are not too small
 for i, count in enumerate(counts_rest):
-    if count >= 50:
+    if count >= 30:
         axs[1].text(i, count + 5, str(count), ha='center', va='bottom', fontsize=7)
 
 # Layout and save
 plt.tight_layout()
-plt.savefig("class_instances_split_top22.png")
+plt.savefig("class_instances_split_top40.png")
 plt.show()

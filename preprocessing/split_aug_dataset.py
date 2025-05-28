@@ -2,13 +2,13 @@ import os
 import random
 import cv2
 import shutil
-from albumentations import Compose, RandomBrightnessContrast, HueSaturationValue, RandomGamma, CLAHE
+from albumentations import Compose, ShiftScaleRotate, RandomBrightnessContrast, RandomGamma, HueSaturationValue
 
 transform = Compose([
-    RandomBrightnessContrast(brightness_limit=0.2, contrast_limit=0.1, p=0.8),
-    RandomGamma(p=0.5, gamma_limit=(80, 120)),
-    HueSaturationValue(hue_shift_limit=2, sat_shift_limit=5, val_shift_limit=8, p=0.2),
-    CLAHE(clip_limit=2.0, tile_grid_size=(8, 8), p=0.1),
+    ShiftScaleRotate(shift_limit=0.05, scale_limit=0.05, rotate_limit=5, p=0.3),
+    RandomBrightnessContrast(brightness_limit=0.2, contrast_limit=0.3, p=0.7),
+    RandomGamma(gamma_limit=(70, 140), p=0.5),
+    HueSaturationValue(hue_shift_limit=5, sat_shift_limit=10, val_shift_limit=10, p=0.5),
 ])
 
 dataset_dir = '../dataset'
@@ -33,8 +33,8 @@ image_files = [f for f in os.listdir(images_dir) if f.lower().endswith(('.jpg', 
 
 random.shuffle(image_files)
 
-train_size = int(len(image_files) * 0.7)
-val_size = int(len(image_files) * 0.2)
+train_size = int(len(image_files) * 0.8)
+val_size = int(len(image_files) * 0.1)
 test_size = len(image_files) - train_size - val_size
 
 train_files = image_files[:train_size]

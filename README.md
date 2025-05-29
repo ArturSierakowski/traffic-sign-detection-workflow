@@ -159,16 +159,22 @@ Instead, augmentations are applied explicitly using Albumentations in the split_
 This approach improves reproducibility and allows us to preview the dataset after augmentation and before training.
 Each transformation is deterministic and configurable, which makes experiments more predictable.
 
-Example augmentation setup:
+Example augmentation filters (add RandomFog/Shadow/Rain if you like)
 
 ```python
-from albumentations import Compose, RandomBrightnessContrast, HueSaturationValue, RandomGamma, CLAHE
+from albumentations import (
+    Compose, ShiftScaleRotate, RandomBrightnessContrast, RandomGamma,
+    HueSaturationValue, GaussianBlur, MotionBlur, Perspective,
+    OneOf
+)
 
 transform = Compose([
-    RandomBrightnessContrast(brightness_limit=0.2, contrast_limit=0.1, p=0.8),
-    RandomGamma(p=0.5, gamma_limit=(80, 120)),
-    HueSaturationValue(hue_shift_limit=2, sat_shift_limit=5, val_shift_limit=8, p=0.2),
-    CLAHE(clip_limit=2.0, tile_grid_size=(8, 8), p=0.1),
+    ShiftScaleRotate(shift_limit=0.05, scale_limit=0.2, rotate_limit=7, border_mode=0, p=0.4),
+    Perspective(scale=(0.02, 0.05), p=0.3),
+    OneOf([MotionBlur(blur_limit=3), GaussianBlur(blur_limit=(3, 5))], p=0.3),
+    RandomBrightnessContrast(brightness_limit=0.3, contrast_limit=0.4, p=0.5),
+    RandomGamma(gamma_limit=(90, 120), p=0.3),
+    HueSaturationValue(hue_shift_limit=5, sat_shift_limit=20, val_shift_limit=15, p=0.4),
 ])
 ```
 
@@ -233,14 +239,14 @@ From your dataset
 </details>
 
 
-## 📊 Final results
+## 📊 Final results with imgsz=640 (pixels) 
 
 | Metric       | Value |
 |--------------|-------|
-| mAP@0.5      | 0.85  |
-| mAP@0.5:0.95 | 0.71  |
-| Precision    | 0.81  |
-| Recall       | 0.80  |
+| mAP@0.5      | 0.89  |
+| mAP@0.5:0.95 | 0.76  |
+| Precision    | 0.87  |
+| Recall       | 0.82  |
 
 ---
 

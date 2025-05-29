@@ -1,7 +1,7 @@
 import sys
 import subprocess
 
-print("Starting dataset preparation pipeline (Step 5/9)...")
+print("Starting dataset preparation pipeline (Step 5/10)...")
 
 seq_dir = "../downloader/download_by_sequence"
 area_dir = "../downloader/download_by_area"
@@ -23,5 +23,8 @@ subprocess.run([sys.executable, "json_to_txt_conversion.py"], cwd=pre_dir, check
 
 print("Step 9: Copying images to dataset/images folder...")
 subprocess.run([sys.executable, "copy_images.py"], cwd=pre_dir, check=True)
+
+print("Step 10: Deleting images with empty .txt files...")
+subprocess.run([sys.executable, "delete_images_without_txt.py"], cwd=pre_dir, check=True)
 
 print("✅ Dataset preparation pipeline completed. Ready for training!")

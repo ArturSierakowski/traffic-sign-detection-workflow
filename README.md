@@ -30,8 +30,9 @@ Model/
 ├── preprocessing/         # Additional transformation tools
 ├── training/              # Training scripts YOLO
 ├── utils/                 # Helper functions
+├── README.md              # You are reading it
+├── prediction_pytorch.py  # A script to detect traffic signs on a video
 └── requirements.txt       # Python dependencies
-└── README.md              # You are reading it
 ```
 
 ## 🧪 Training Pipeline – Step by Step
@@ -163,18 +164,27 @@ Example augmentation filters (add RandomFog/Shadow/Rain if you like)
 
 ```python
 from albumentations import (
-    Compose, ShiftScaleRotate, RandomBrightnessContrast, RandomGamma,
-    HueSaturationValue, GaussianBlur, MotionBlur, Perspective,
-    OneOf
+    Compose, RandomBrightnessContrast,
+    GaussianBlur, MotionBlur, OneOf, GaussNoise,
+    HueSaturationValue, RandomRain, RandomShadow
 )
 
 transform = Compose([
-    ShiftScaleRotate(shift_limit=0.05, scale_limit=0.2, rotate_limit=7, border_mode=0, p=0.4),
-    Perspective(scale=(0.02, 0.05), p=0.3),
-    OneOf([MotionBlur(blur_limit=3), GaussianBlur(blur_limit=(3, 5))], p=0.3),
-    RandomBrightnessContrast(brightness_limit=0.3, contrast_limit=0.4, p=0.5),
-    RandomGamma(gamma_limit=(90, 120), p=0.3),
-    HueSaturationValue(hue_shift_limit=5, sat_shift_limit=20, val_shift_limit=15, p=0.4),
+    OneOf([
+        MotionBlur(blur_limit=5),
+        GaussianBlur(blur_limit=(3, 5)),
+    ], p=0.4),
+
+    OneOf([
+        RandomRain(slant_range=(-20, 20), drop_length=30, drop_width=15, drop_color=(50, 50, 50), blur_value=30,
+                   brightness_coefficient=0.7, rain_type="drizzle"),
+        RandomShadow(shadow_roi=(0, 0.66, 1, 1), num_shadows_limit=(2, 3), shadow_dimension=5,
+                     shadow_intensity_range=(0.3, 0.6))
+    ], p=0.4),
+    
+    GaussNoise(std_range=(0.05, 0.1), p=0.2),
+    RandomBrightnessContrast(brightness_limit=0.3, contrast_limit=0.5, p=0.5),
+    HueSaturationValue(hue_shift_limit=10, sat_shift_limit=25, val_shift_limit=20, p=0.4),
 ])
 ```
 
@@ -207,17 +217,18 @@ Default parameters of training (you can change it freely)
 
 ```python
 params = {
-        "cfg": "custom_args.yaml",
-        "data": "data.yaml",
-        "epochs": 5,
-        "batch": 8,
-        "imgsz": 640,
-        "device": "cuda",
-        "augment": False,
-        "project": "runs/detect",
-        "name": "exp_yolo_mlflow",
-        "exist_ok": False
-    }
+    "cfg": "custom_args.yaml",
+    "data": "data.yaml",
+    "epochs": 100,
+    "batch": 36,
+    "imgsz": 640,
+    "patience": 10,
+    "device": "cuda",
+    "augment": False,
+    "project": "runs/detect",
+    "name": "exp_yolo_mlflow",
+    "exist_ok": False
+}
 ```
 
 > [!WARNING]
@@ -243,10 +254,10 @@ From your dataset
 
 | Metric       | Value |
 |--------------|-------|
-| mAP@0.5      | 0.89  |
-| mAP@0.5:0.95 | 0.76  |
-| Precision    | 0.87  |
-| Recall       | 0.82  |
+| mAP@0.5      | 0.93  |
+| mAP@0.5:0.95 | 0.78  |
+| Precision    | 0.91  |
+| Recall       | 0.86  |
 
 ---
 

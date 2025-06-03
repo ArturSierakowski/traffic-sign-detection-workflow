@@ -18,7 +18,7 @@ for col in df.columns:
     if max_value > 0:
         true_class = class_names[col_index]
         mistaken_class = class_names[int(max_row_index)]
-        with open('results/error_report_24.04.2025.txt', 'w', encoding='utf-8') as out:
+        with open('runs/results/error_report_24.04.2025.txt', 'w', encoding='utf-8') as out:
             for col in df.columns:
                 col_index = int(col)
                 series = df[col].copy()

@@ -5,7 +5,7 @@ from queue import Queue
 from ultralytics import YOLO
 
 VIDEO_PATH = "video.mp4"
-MODEL_PATH = "ultimo_mini.pt"
+MODEL_PATH = "ultimo.pt"
 FRAME_DELAY = 5
 PREDICT_EVERY_N_FRAMES = 2
 
@@ -21,7 +21,7 @@ def predict_worker():
             items = list(frame_buffer.queue)
             for frame_id, frame in items:
                 if frame_id % PREDICT_EVERY_N_FRAMES == 0 and frame_id not in bbox_dict:
-                    results = model(frame, imgsz=640, conf=0.8)[0]
+                    results = model(frame, imgsz=640, conf=0.7)[0]
                     detections = []
                     for box in results.boxes:
                         x1, y1, x2, y2 = map(int, box.xyxy[0])

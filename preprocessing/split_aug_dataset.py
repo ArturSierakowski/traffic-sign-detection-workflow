@@ -13,7 +13,6 @@ transform = Compose([
         MotionBlur(blur_limit=5),
         GaussianBlur(blur_limit=(3, 5)),
     ], p=0.4),
-    GaussNoise(std_range=(0.05, 0.1), p=0.2),
 
     OneOf([
         RandomRain(slant_range=(-20, 20), drop_length=30, drop_width=15, drop_color=(50, 50, 50), blur_value=30,
@@ -21,6 +20,8 @@ transform = Compose([
         RandomShadow(shadow_roi=(0, 0.66, 1, 1), num_shadows_limit=(2, 3), shadow_dimension=5,
                      shadow_intensity_range=(0.3, 0.6))
     ], p=0.4),
+
+    GaussNoise(std_range=(0.05, 0.1), p=0.2),
     RandomBrightnessContrast(brightness_limit=0.3, contrast_limit=0.5, p=0.5),
     HueSaturationValue(hue_shift_limit=10, sat_shift_limit=25, val_shift_limit=20, p=0.4),
 ])

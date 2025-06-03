@@ -101,12 +101,16 @@ python training/train.py
 yolo export model=best.pt format=onnx
 ```
 
+---
+
 ## 📂 Detailed description of the workflow
 
 Mapillary is the site which you can download from and upload to cameos from a dash-camera.
 
 This workflow allows you to download images either from the area (default = 0.005 geographical degrees)
 or sequences (car routes).
+
+---
 
 ### To download and label the images I created this pipeline:
 
@@ -122,6 +126,8 @@ Your next step should be manually verifying the labels, because they are made by
 > Use [Labelme](https://github.com/wkentaro/labelme)
 
 When everything is verified, you can go to the next step.
+
+---
 
 ### To prepare the data in YOLO format use this pipeline:
 
@@ -144,6 +150,8 @@ dataset/
     ├──3.txt
     ...
 ```
+
+---
 
 ### The last step before training your model is splitting it between sets (training, validation and test) and augmenting the training set
 
@@ -209,6 +217,8 @@ dataset/
 > When I don't like the augmentation, or I extend the dataset with new labeled images
 > I delete only the train, val and test folders. 
 
+---
+
 ### Training using the YOLO11 model
 
 [`train.py`](training/train.py)
@@ -233,6 +243,8 @@ params = {
 
 > [!WARNING]
 > TODO
+
+---
 
 ## 📂 Bonus [utils/](./utils) folder
 
@@ -276,12 +288,14 @@ target_classes = {"A-7", "B-33", "B-36", "C-9", "D-1", "D-3", "D-6", "D-18", "D-
 ```
 
 Why do I use both?
-> Use `label_rare_classes.py` to skip classes that occur frequently.
-> Delete images with no labels.
-> Then use `label_frequent_classes.py` to automatize labeling and correct model errors.
+
+    Use label_rare_classes.py to skip classes that occur frequently.
+    Delete images with no labels.
+    Then use label_frequent_classes.py to automatize labeling and correct model errors.
 
 </details>
 
+---
 
 ## 📊 Final results with imgsz=640 (pixels) 
 
@@ -293,8 +307,15 @@ Why do I use both?
 | Recall       | 0.86  |
 
 ## Specified results for each class:
-[`results_ultimo.txt`](.doc/results_ultimo.txt)
+### [`results_ultimo.txt`](.doc/results_ultimo.txt)
 
+     Class     Images  Instances      Box(P          R      mAP50  mAP50-95):
+
+       all       1883       3654      0.911      0.855      0.926      0.782
+       A-1          6          6      0.857          1      0.995      0.841
+       A-2          6          7          1      0.783      0.995      0.903
+       A-3          6         10      0.871          1      0.995      0.769
+       ...         ...       ...        ...        ...        ...        ...
 ## Training/validation loss and metrics plots
 
 ![results](.doc/results.png)

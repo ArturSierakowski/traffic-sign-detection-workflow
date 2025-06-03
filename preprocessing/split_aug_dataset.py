@@ -3,25 +3,26 @@ import cv2
 import shutil
 from sklearn.model_selection import train_test_split
 from albumentations import (
-    Compose, ShiftScaleRotate, RandomBrightnessContrast, RandomGamma,
-    HueSaturationValue, GaussianBlur, MotionBlur, Perspective,
-    OneOf, RandomRain, RandomFog, RandomShadow
+    Compose, RandomBrightnessContrast,
+    GaussianBlur, MotionBlur, OneOf, GaussNoise,
+    HueSaturationValue, RandomRain, RandomShadow
 )
 
 transform = Compose([
-    ShiftScaleRotate(shift_limit=0.05, scale_limit=0.2, rotate_limit=7, border_mode=0, p=0.4),
-    Perspective(scale=(0.02, 0.05), p=0.3),
     OneOf([
-        MotionBlur(blur_limit=3),
+        MotionBlur(blur_limit=5),
         GaussianBlur(blur_limit=(3, 5)),
-    ], p=0.3),
-    RandomBrightnessContrast(brightness_limit=0.2, contrast_limit=0.4, p=0.5),
-    RandomGamma(gamma_limit=(90, 110), p=0.3),
-    HueSaturationValue(hue_shift_limit=5, sat_shift_limit=20, val_shift_limit=15, p=0.4),
+    ], p=0.4),
+    GaussNoise(std_range=(0.05, 0.1), p=0.2),
 
-    RandomRain(brightness_coefficient=0.95, drop_width=1, blur_value=2, p=0.2),
-    RandomFog(fog_coef_lower=0.05, fog_coef_upper=0.1, alpha_coef=0.08, p=0.15),
-    RandomShadow(shadow_roi=(0, 0.5, 1, 1), num_shadows_lower=1, num_shadows_upper=2, shadow_dimension=5, p=0.2)
+    OneOf([
+        RandomRain(slant_range=(-20, 20), drop_length=30, drop_width=15, drop_color=(50, 50, 50), blur_value=30,
+                   brightness_coefficient=0.7, rain_type="drizzle"),
+        RandomShadow(shadow_roi=(0, 0.66, 1, 1), num_shadows_limit=(2, 3), shadow_dimension=5,
+                     shadow_intensity_range=(0.3, 0.6))
+    ], p=0.4),
+    RandomBrightnessContrast(brightness_limit=0.3, contrast_limit=0.5, p=0.5),
+    HueSaturationValue(hue_shift_limit=10, sat_shift_limit=25, val_shift_limit=20, p=0.4),
 ])
 
 dataset_dir = '../dataset'
@@ -43,7 +44,7 @@ image_labels = []
 
 train_ratio = 0.8
 val_ratio = 0.2
-test_ratio = 0.0
+test_ratio = 0
 
 assert abs(train_ratio + val_ratio + test_ratio - 1.0) < 1e-6, "Sum must give 1.0"
 

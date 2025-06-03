@@ -6,13 +6,14 @@ if __name__ == "__main__":
     mlflow.set_tracking_uri("file:mlruns")
     mlflow.set_experiment("yolo-traffic-signs")
 
-    with mlflow.start_run(run_name="29.05.2025"):
+    with mlflow.start_run():
         params = {
             "cfg": "custom_args.yaml",
             "data": "data.yaml",
             "epochs": 100,
-            "batch": 4,
-            "imgsz": 960,
+            "batch": 36,
+            "imgsz": 640,
+            "patience": 15,
             "device": "cuda",
             "augment": False,
             "project": "runs/detect",
@@ -20,7 +21,7 @@ if __name__ == "__main__":
             "exist_ok": False
         }
 
-        model = YOLO("yolo11m.pt")
+        model = YOLO("yolo11n.pt")
         results = model.train(**params)
 
         save_dir = Path(model.trainer.save_dir)

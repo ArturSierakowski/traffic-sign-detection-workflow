@@ -57,8 +57,10 @@ for file in json_files:
             class_id = category_to_id[label]
             points = item["points"]
 
-            x1, y1 = points[0]
-            x2, y2 = points[1]
+            x1 = min(points[0][0], points[1][0])
+            y1 = min(points[0][1], points[1][1])
+            x2 = max(points[0][0], points[1][0])
+            y2 = max(points[0][1], points[1][1])
 
             # Conversion to YOLO (normalized values 0-1)
             x_center = round(((x1 + x2) / 2) / image_width, 6)
@@ -66,11 +68,13 @@ for file in json_files:
             bbox_width = round(abs(x2 - x1) / image_width, 6)
             bbox_height = round(abs(y2 - y1) / image_height, 6)
 
-            MIN_AREA_PX = 32 * 32
             bbox_width_px = abs(x2 - x1)
             bbox_height_px = abs(y2 - y1)
-            if bbox_width_px * bbox_height_px < MIN_AREA_PX:
-                print(f"⚠️ Skipped small bounding box ({bbox_width_px}x{bbox_height_px}px) for class: {label}")
+            scale = 640 / max(image_width, image_height)
+            scaled_w = bbox_width_px * scale
+            scaled_h = bbox_height_px * scale
+            if scaled_w * scaled_h < 256:
+                print(f"⚠️ Skipped (scaled < 16x16) {label}: {scaled_w:.1f}x{scaled_h:.1f}")
                 continue
 
             print(f"🟩 {label}: YOLO format -> {class_id} {x_center} {y_center} {bbox_width} {bbox_height}")

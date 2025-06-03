@@ -266,21 +266,16 @@ The script outputs names of jsons with found labels
 ---
 
 ### [`label_rare_classes.py`](utils/label_rare_classes.py)
-
 ```python
 skip_classes = {"A-7", "B-33", "B-36", "C-9", "D-1", "D-3", "D-6", "D-18", "D-15/16/17"}
 ```
 
 ### [`label_frequent_classes.py`](utils/label_frequent_classes.py)
-
-Same as in `find_classes`:
 ```python
 target_classes = {"A-7", "B-33", "B-36", "C-9", "D-1", "D-3", "D-6", "D-18", "D-15/16/17"}
 ```
 
 Why do I use both?
-
-> [!TIP]
 > Use `label_rare_classes.py` to skip classes that occur frequently.
 > Delete images with no labels.
 > Then use `label_frequent_classes.py` to automatize labeling and correct model errors.
@@ -296,6 +291,13 @@ Why do I use both?
 | mAP@0.5:0.95 | 0.78  |
 | Precision    | 0.91  |
 | Recall       | 0.86  |
+
+## Specified results for each class:
+[`results_ultimo.txt`](.doc/results_ultimo.txt)
+
+## Training/validation loss and metrics plots
+
+![results](.doc/results.png)
 
 ---
 

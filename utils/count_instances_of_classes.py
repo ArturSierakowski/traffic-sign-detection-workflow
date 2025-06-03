@@ -46,7 +46,7 @@ labels_top, counts_top = zip(*top)
 axs[0].bar(labels_top, counts_top, color=palette_top)
 axs[0].set_title("Top 40 most frequent classes")
 axs[0].grid(axis='y', linestyle='--', alpha=0.5)
-axs[0].tick_params(axis='x', rotation=90)
+axs[0].tick_params(axis='x', rotation=30)
 
 # Add value labels
 for i, count in enumerate(counts_top):
@@ -57,7 +57,7 @@ labels_rest, counts_rest = zip(*rest)
 axs[1].bar(labels_rest, counts_rest, color=palette_rest)
 axs[1].set_title(f"Remaining {len(rest)} classes")
 axs[1].grid(axis='y', linestyle='--', alpha=0.5)
-axs[1].tick_params(axis='x', rotation=90)
+axs[1].tick_params(axis='x', rotation=30)
 
 # Optional: show labels if counts are not too small
 for i, count in enumerate(counts_rest):

@@ -239,13 +239,51 @@ params = {
 <details>
     <summary>Click here to see bonus scripts</summary>
 
-    count_instances_of_classes.py
+### [`count_instances_of_classes.py`](utils/count_instances_of_classes.py)
     
-It creates an image like this one:
+It creates an image like this one from your dataset_prepared
 
-    TODO
+![class instances](.doc/class_instances_split_top40.png)
 
-From your dataset
+---
+
+### [`decrease_image_resolution.py`](utils/decrease_image_resolution.py)
+
+It's a simple script to visualize the YOLO input resolution.
+
+Just put an image.jpg to utils folder
+
+---
+
+### [`find_labels.py`](utils/find_labels.py)
+
+You can change targeted classes in this line:
+```python
+targeted_classes = {'A-5'}
+```
+The script outputs names of jsons with found labels
+
+---
+
+### [`label_rare_classes.py`](utils/label_rare_classes.py)
+
+```python
+skip_classes = {"A-7", "B-33", "B-36", "C-9", "D-1", "D-3", "D-6", "D-18", "D-15/16/17"}
+```
+
+### [`label_frequent_classes.py`](utils/label_frequent_classes.py)
+
+Same as in `find_classes`:
+```python
+target_classes = {"A-7", "B-33", "B-36", "C-9", "D-1", "D-3", "D-6", "D-18", "D-15/16/17"}
+```
+
+Why do I use both?
+
+> [!TIP]
+> Use `label_rare_classes.py` to skip classes that occur frequently.
+> Delete images with no labels.
+> Then use `label_frequent_classes.py` to automatize labeling and correct model errors.
 
 </details>
 

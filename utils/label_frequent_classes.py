@@ -5,6 +5,13 @@ import base64
 from PIL import Image
 from ultralytics import YOLO
 
+root_dir = sys.argv[1] if len(sys.argv) > 1 else "../downloader/download_by_area/data"
+
+model = YOLO('../ultimo.pt')
+class_names = model.names
+target_classes = {"A-7", "B-33", "B-36", "C-9", "D-1", "D-3", "D-6", "D-18", "D-15/16/17"}
+
+
 def image_to_base64(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode('utf-8')
@@ -16,11 +23,6 @@ def is_duplicate(shape1, shape2, tol=10):
     p2a, p2b = shape2["points"]
     return all(abs(a - b) <= tol for a, b in zip(p1a + p1b, p2a + p2b))
 
-root_dir = sys.argv[1] if len(sys.argv) > 1 else "../downloader/download_by_area/data"
-
-model = YOLO('../sigma.pt')
-class_names = model.names
-target_classes = {"A-7", "B-33", "B-36", "C-9", "D-1", "D-3", "D-6", "D-18", "D-15/16/17"}
 
 for dirpath, _, filenames in os.walk(root_dir):
     for f in filenames:

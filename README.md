@@ -1,8 +1,12 @@
+ <img src=".doc/logo2.png" alt="Logo" width="250"/>
+
 # Traffic Sign Detection
 
 This module contains scripts for downloading, processing, and training
 a custom YOLO11 model for traffic sign detection using imagery from
 Mapillary. It also supports experiment tracking with MLflow.
+
+![gif](.doc/output.gif)
 
 ## 👤 Who is this for?
 
@@ -258,7 +262,7 @@ Search for images with specific classes.
 ```python
 targeted_classes = {'A-5'}
 ```
-The script outputs names of jsons with found labels
+The script outputs names of JSONs with found labels
 
 ---
 

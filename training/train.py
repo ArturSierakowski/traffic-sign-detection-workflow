@@ -10,7 +10,7 @@ if __name__ == "__main__":
             "cfg": "custom_args.yaml",
             "data": "data.yaml",
             "epochs": 100,
-            "batch": 36,
+            "batch": 20,
             "imgsz": 640,
             "patience": 10,
             "device": "cuda",
@@ -20,5 +20,5 @@ if __name__ == "__main__":
             "exist_ok": False
         }
 
-        model = YOLO("yolo11n.pt")
+        model = YOLO("yolo11s.pt")
         results = model.train(**params)

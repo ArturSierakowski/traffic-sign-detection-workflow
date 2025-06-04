@@ -19,6 +19,7 @@ dataset/
 
 # training
 *.pt
+!ultimo.pt
 *.onnx
 mlruns/
 results/

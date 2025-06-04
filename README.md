@@ -230,9 +230,6 @@ params = {
 }
 ```
 
-> [!WARNING]
-> TODO
-
 ---
 
 ## 🎁 Bonus [utils/](./utils) folder

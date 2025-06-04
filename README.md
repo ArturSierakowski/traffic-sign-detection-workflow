@@ -58,7 +58,7 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 MAPILLARY_TOKEN=MLY|YOUR|TOKEN # set your token here
 ```
 
-<details><summary>📸 Click to show Mapillary screenshots</summary>
+<details><summary>📸 CLICK HERE TO SHOW MAPILLARY SCREENSHOTS!</summary>
 
 <br>
 
@@ -235,11 +235,7 @@ params = {
 
 ---
 
-## 🧰 Bonus [utils/](./utils) folder
-
-<details>
-    <summary>Click here to see bonus scripts</summary>
-
+## 🎁 Bonus [utils/](./utils) folder
 ### [`count_instances_of_classes.py`](utils/count_instances_of_classes.py)
     
 Generates class distribution chart from dataset_prepared
@@ -247,6 +243,10 @@ Generates class distribution chart from dataset_prepared
 ![class instances](.doc/class_instances_split_top40.png)
 
 ---
+
+<details>
+    <summary>🧰 CLICK HERE TO SEE MORE UTILITIES!</summary>
+
 
 ### [`decrease_image_resolution.py`](utils/decrease_image_resolution.py)
 

@@ -11,7 +11,7 @@ def image_to_base64(image_path):
 
 root_dir = sys.argv[1] if len(sys.argv) > 1 else "../downloader/download_by_area/data/"
 
-model = YOLO('../omega.pt')
+model = YOLO('../ultimo.pt')
 class_names = model.names
 skip_classes = {}
 
